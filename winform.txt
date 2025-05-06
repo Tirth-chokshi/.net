@@ -1,0 +1,179 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication3.WebForm1" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>ASP.NET Form with Submission Details</title>
+    <style type="text/css">
+        .validation-error {
+            color: red;
+        }
+        .form-field {
+            margin-bottom: 10px;
+        }
+
+        .submission-details {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h1>My Web Form</h1>
+
+            <div class="form-field">
+                <asp:Label ID="lblName" runat="server" Text="Name:"></asp:Label>
+                <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvName" runat="server" ControlToValidate="txtName"
+                    ErrorMessage="Name is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
+                <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail"
+                    ErrorMessage="Email is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
+                    ErrorMessage="Invalid email format." ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                    CssClass="validation-error"></asp:RegularExpressionValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblPhone" runat="server" Text="Phone:"></asp:Label>
+                <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvPhone" runat="server" ControlToValidate="txtPhone"
+                    ErrorMessage="Phone is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblAddress" runat="server" Text="Address:"></asp:Label>
+                <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ControlToValidate="txtAddress"
+                    ErrorMessage="Address is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblCity" runat="server" Text="City:"></asp:Label>
+                <asp:TextBox ID="txtCity" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="txtCity"
+                    ErrorMessage="City is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblState" runat="server" Text="State:"></asp:Label>
+                <asp:TextBox ID="txtState" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvState" runat="server" ControlToValidate="txtState"
+                    ErrorMessage="State is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblZipCode" runat="server" Text="Zip Code:"></asp:Label>
+                <asp:TextBox ID="txtZipCode" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvZipCode" runat="server" ControlToValidate="txtZipCode"
+                    ErrorMessage="Zip Code is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="revZipCode" runat="server" ControlToValidate="txtZipCode"
+                    ErrorMessage="Invalid Zip Code format." ValidationExpression="^\d{6}(?:[-\s]\d{4})?$"
+                    CssClass="validation-error"></asp:RegularExpressionValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblCountry" runat="server" Text="Country:"></asp:Label>
+                <asp:TextBox ID="txtCountry" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvCountry" runat="server" ControlToValidate="txtCountry"
+                    ErrorMessage="Country is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+            </div>
+
+            <div class="form-field">
+                <asp:Label ID="lblComment" runat="server" Text="Comment:"></asp:Label>
+                <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvComment" runat="server" ControlToValidate="txtComment"
+                    ErrorMessage="Comment is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+            </div>
+
+           <div class="form-field">
+                <asp:Label ID="lblAge" runat="server" Text="Age:"></asp:Label>
+                <asp:TextBox ID="txtAge" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvAge" runat="server" ControlToValidate="txtAge"
+                    ErrorMessage="Age is required." CssClass="validation-error"></asp:RequiredFieldValidator>
+                <asp:RangeValidator ID="rvAge" runat="server" ControlToValidate="txtAge"
+                    ErrorMessage="Age must be between 1 and 120." MinimumValue="1" MaximumValue="120" Type="Integer"
+                    CssClass="validation-error"></asp:RangeValidator>
+            </div>
+
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="False" ShowSummary="True" />
+
+            <asp:Panel ID="pnlSubmissionDetails" runat="server" Visible="false" CssClass="submission-details">
+                <h2>Submission Details:</h2>
+                <asp:Label ID="lblSubmissionName" runat="server" Text="Name: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionEmail" runat="server" Text="Email: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionPhone" runat="server" Text="Phone: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionAddress" runat="server" Text="Address: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionCity" runat="server" Text="City: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionState" runat="server" Text="State: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionZipCode" runat="server" Text="Zip Code: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionCountry" runat="server" Text="Country: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionComment" runat="server" Text="Comment: "></asp:Label><br />
+                <asp:Label ID="lblSubmissionAge" runat="server" Text="Age: "></asp:Label><br />
+            </asp:Panel>
+        </div>
+    </form>
+</body>
+</html>
+
+XML-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebApplication3
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
+            {
+                Path = "~/Scripts/jquery-3.6.0.min.js",  // Adjust path to your jQuery file
+                DebugPath = "~/Scripts/jquery-3.6.0.js", // Adjust path to your jQuery debug file (optional)
+                CdnPath = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js", // CDN URL
+                CdnDebugPath = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js", // CDN debug URL (optional)
+                CdnSupportsSecureConnection = true // Use HTTPS if the page is HTTPS
+            });
+
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                lblSubmissionName.Text = "Name: " + Server.HtmlEncode(txtName.Text); //Important: Encode HTML to prevent XSS attacks.
+                lblSubmissionEmail.Text = "Email: " + Server.HtmlEncode(txtEmail.Text);
+                lblSubmissionPhone.Text = "Phone: " + Server.HtmlEncode(txtPhone.Text);
+                lblSubmissionAddress.Text = "Address: " + Server.HtmlEncode(txtAddress.Text);
+                lblSubmissionCity.Text = "City: " + Server.HtmlEncode(txtCity.Text);
+                lblSubmissionState.Text = "State: " + Server.HtmlEncode(txtState.Text);
+                lblSubmissionZipCode.Text = "Zip Code: " + Server.HtmlEncode(txtZipCode.Text);
+                lblSubmissionCountry.Text = "Country: " + Server.HtmlEncode(txtCountry.Text);
+                lblSubmissionComment.Text = "Comment: " + Server.HtmlEncode(txtComment.Text);
+                lblSubmissionAge.Text = "Age: " + Server.HtmlEncode(txtAge.Text);
+
+                // Make the submission details panel visible
+                pnlSubmissionDetails.Visible = true;
+             
+            }
+            else
+            {
+                // Validation failed.  The error messages will be displayed.
+                // No need to do anything here; the validators handle the display.
+                pnlSubmissionDetails.Visible = false; //Hide submission details panel if validation fails.
+            }
+        }
+    }
+}
